@@ -4,7 +4,7 @@ module.exports.config = {
   name: "acp",
   version: "1.0.0",
   hasPermssion: 2,
-  credits: "SHAHADAT SAHU",
+  credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
   description: "Accept or delete friend requests",
   commandCategory: "system",
   usages: "acp",
@@ -16,10 +16,18 @@ module.exports.handleReply = async ({ handleReply, event, api }) => {
   if (author !== event.senderID) return;
 
   const args = event.body.trim().toLowerCase().split(" ");
-
   const action = args[0];
-  if (!["add", "del"].includes(action))
-    return api.sendMessage("Use: add <stt/all> OR del <stt/all>", event.threadID);
+  
+  if (!["add", "del"].includes(action)) {
+    return api.sendMessage(
+`───────────────
+» ⚠️ 𝗪𝗿𝗼𝗻𝗴 𝗙𝗼𝗿𝗺𝗮𝘁!
+
+   » সঠিক নিয়ম: 𝗮𝗱𝗱 <সিরিয়াল/𝗮𝗹𝗹> অথবা 𝗱𝗲𝗹 <সিরিয়াল/𝗮𝗹𝗹> লিখুন।
+───────────────
+
+» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`, event.threadID, event.messageID);
+  }
 
   const form = {
     av: api.getCurrentUserID(),
@@ -44,9 +52,9 @@ module.exports.handleReply = async ({ handleReply, event, api }) => {
   }
 
   let targetIDs = args.slice(1);
-
-  if (targetIDs[0] === "all")
+  if (targetIDs[0] === "all") {
     targetIDs = listRequest.map((_, i) => (i + 1).toString());
+  }
 
   const success = [];
   const failed = [];
@@ -55,7 +63,7 @@ module.exports.handleReply = async ({ handleReply, event, api }) => {
   for (const stt of targetIDs) {
     const user = listRequest[parseInt(stt) - 1];
     if (!user) {
-      failed.push(`Unknown stt: ${stt}`);
+      failed.push(`𝗨𝗻𝗸𝗻𝗼𝘄𝗻 𝗦𝗧𝗧: ${stt}`);
       continue;
     }
 
@@ -86,8 +94,19 @@ module.exports.handleReply = async ({ handleReply, event, api }) => {
     }
   }
 
-  api.sendMessage(
-    `Done: ${action === "add" ? "Accepted" : "Deleted"} ${success.length} requests\n${success.join("\n")}${failed.length ? `\n\nFailed: ${failed.length}\n${failed.join("\n")}` : ""}`,
+  const statusText = action === "add" ? "𝗔𝗰𝗰𝗲𝗽𝘁𝗲𝗱" : "𝗗𝗲𝗹𝗲𝘁𝗲𝗱";
+  
+  return api.sendMessage(
+`───────────────
+
+» ✅ 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹𝗹𝘆 ${statusText} ${success.length} 𝗥𝗲𝗾𝘂𝗲𝘀𝘁𝘀.
+
+${success.map(name => `   » ${name}`).join("\n")}
+${failed.length ? `\n» ❌ 𝗙𝗮𝗶𝗹𝗲𝗱: ${failed.length}\n${failed.map(name => `   » ${name}`).join("\n")}` : ""}
+
+───────────────
+
+» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`,
     event.threadID,
     event.messageID
   );
@@ -107,24 +126,41 @@ module.exports.run = async ({ event, api }) => {
     const data = JSON.parse(res);
     const list = data.data.viewer.friending_possibilities.edges;
 
-    let msg = "";
+    if (list.length === 0) {
+      return api.sendMessage(
+`───────────────
+» 👥 কোনো ফ্রেন্ড রিকোয়েস্ট পাওয়া যায়নি!
+───────────────
+
+» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`, event.threadID, event.messageID);
+    }
+
+    let msg = `───────────────\n\n» 👥 𝗙𝗥𝗜𝗘𝗡𝗗 𝗥𝗘𝗤𝗨𝗘𝗦𝗧 𝗟𝗜𝗦𝗧\n`;
     let i = 0;
 
     for (const u of list) {
       i++;
-      msg += `\n${i}. Name: ${u.node.name}\nID: ${u.node.id}\nUrl: ${u.node.url.replace("www.facebook", "fb")}\nTime: ${moment(u.time * 1000).tz("Asia/Dhaka").format("DD/MM/YYYY HH:mm:ss")}\n`;
+      const timeStr = moment(u.time * 1000).tz("Asia/Dhaka").format("DD/MM/YYYY HH:mm:ss");
+      msg += `\n   » ${i}. 𝗡𝗮𝗺𝗲 : ${u.node.name}\n   » 𝗨𝗜𝗗 : ${u.node.id}\n   » 𝗧𝗶𝗺𝗲 : ${timeStr}\n`;
     }
 
-    api.sendMessage(msg + "\nReply this message:\nadd <stt/all>\ndel <stt/all>", event.threadID, (e, info) => {
+    msg += `\n───────────────\n\n» 💬 এই মেসেজে রিপ্লাই দিন:\n\n » 𝗮𝗱𝗱 <সিরিয়াল/𝗮𝗹𝗹> => রিকোয়েস্ট অ্যাকসেপ্ট করতে।\n » 𝗱𝗲𝗹 <সিরিয়াল/𝗮𝗹𝗹> => রিকোয়েস্ট ডিলিট করতে।\n\n───────────────\n\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`;
+
+    api.sendMessage(msg, event.threadID, (e, info) => {
       global.client.handleReply.push({
         name: module.exports.config.name,
         messageID: info.messageID,
         listRequest: list,
         author: event.senderID
       });
-    });
+    }, event.messageID);
 
   } catch (err) {
-    api.sendMessage("Error loading friend requests.", event.threadID);
+    api.sendMessage(
+`───────────────
+» ❌ 𝗘𝗿𝗿𝗼𝗿 𝗹𝗼𝗮𝗱𝗶𝗻𝗴 𝗳𝗿𝗶𝗲𝗻𝗱 𝗿𝗲𝗾𝘂𝗲𝘀𝘁𝘀!
+───────────────
+
+» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`, event.threadID, event.messageID);
   }
 };
