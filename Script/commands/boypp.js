@@ -5,7 +5,7 @@ module.exports.config = {
  name: "boy pp",
  version: "1.0.1",
  hasPermssion: 0,
- credits: "𝐒𝐡𝐚𝐡𝐚𝐝𝐚𝐭 𝐒𝐀𝐇𝐔",
+ credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
  description: "Send a random Facebook boy profile picture",
  commandCategory: "Random-IMG",
  usages: "boy pp",
@@ -53,9 +53,19 @@ module.exports.run = async ({ api, event }) => {
 
  const callback = () => {
  api.sendMessage({
- body: " Facebook Boy Profile 🤌",
+ body: `───────────────
+
+» 👦 𝗙𝗮𝗰𝗲𝗯𝗼𝗼𝗸 𝗕𝗼𝘆 𝗣𝗿𝗼𝗳Block𝗹𝗲
+
+───────────────
+
+» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`,
  attachment: fs.createReadStream(filePath)
- }, event.threadID, () => fs.unlinkSync(filePath));
+ }, event.threadID, () => {
+ if (fs.existsSync(filePath)) {
+ fs.unlinkSync(filePath);
+ }
+ });
  };
 
  request(encodeURI(selectedImage)).pipe(fs.createWriteStream(filePath)).on("close", callback);
