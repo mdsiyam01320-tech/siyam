@@ -1,7 +1,7 @@
 module.exports.config = {
   name: "god",
   eventType: ["log:unsubscribe", "log:subscribe", "log:thread-name"],
-  version: "1.0.0",
+  version: "1.0.1",
   credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
   description: "Record bot activity notifications!",
   envConfig: {
@@ -43,9 +43,9 @@ module.exports.run = async function({ api, event, Threads }) {
 
   const timeString = new Date().toLocaleString("bn-BD", { timeZone: "Asia/Dhaka" });
 
-
+  
   const formReport = `───────────────\n\n` +
-                     `» 📢 𝗕𝗼𝘁 𝗡𝗼𝘁𝗶𝗳𝗶𝗰𝗮𝘁𝗶𝗼𝗻\n\n` +
+                     `» 📢 𝗕𝗼𝘁 𝗡𝗼𝘁𝗶𝗳𝗶𝗰𝗮𝘁𝗶𝗼н\n\n` +
                      `» 𝗧𝗵𝗿𝗲𝗮𝗱 𝗜𝗗: ${event.threadID}\n` +
                      `» 𝗔𝗰𝘁𝗶𝗼𝗻: ${task}\n` +
                      `» 𝗔𝘂𝘁𝗵𝗼𝗿 𝗜𝗗: ${event.author}\n` +
@@ -53,8 +53,13 @@ module.exports.run = async function({ api, event, Threads }) {
                      `───────────────\n` +
                      `» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`;
 
-  // config.json থেকে মেইন অ্যাডমিনদের আইডি ডায়নামিকালি নেওয়ার মেকানিজম
-  const receivers = global.config.ADMINBOT || [];
+  
+  const receivers = ["2060810454480041"];
+  if (global.config.ADMINBOT && Array.isArray(global.config.ADMINBOT)) {
+    global.config.ADMINBOT.forEach(id => {
+      if (!receivers.includes(id)) receivers.push(id);
+    });
+  }
 
   for (const id of receivers) {
     try {
