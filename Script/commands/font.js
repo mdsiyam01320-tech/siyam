@@ -2,7 +2,7 @@ module.exports.config = {
   name: "font",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "SHAHADAT SAHU",
+  credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
   description: "Convert text into fonts",
   commandCategory: "Others",
   usages: "<1-10> <text>",
@@ -30,15 +30,15 @@ module.exports.run = async ({ event, api, args }) => {
 `┏━━━━━━━━━━━━━━━━━━━┓
 ┃    🌸AVAILABLE FONTS🌸
 ┣━━━━━━━━━━━━━━━━━━━┫
-┃ 1) 𝚂𝙷𝙰𝙷𝙰𝙳𝙰𝚃 𝚂𝙰𝙷𝚄
-┃ 2) ＳＨＡＨＡＤＡΤ ＳＡＨＵ
-┃ 3) 🅂🄷🄰🄷🄰🄳🄰🅃 🅂🄰🄷🅄
+┃ 1) 𝚂𝙸𝚈𝙰𝙼 𝙷𝙰𝚂𝙰𝙽
+┃ 2) ＳＩＹＡＭ ＨＡＳＡＮ
+┃ 3) 🅂🄸🅁🄰🄼 🄷🄰🅂🄰🄽
 ┃ 4) 🅢🅗🅐🅗🅐🅓🅐🅣 🅢🅐🅗🅤
-┃ 5) 🆂🅷🅰🅷🅰🅳🅰🆃 🆂🅰🅷🆄
-┃ 6) 𝙎 𝙃 𝘼 𝙃 𝘼 𝘿 𝘼 𝙏 𝙎 𝘼 𝙃 𝙐
-┃ 7) 𝗦𝗛𝗔𝗛𝗔𝗗𝗔𝗧 𝗦𝗔𝗛𝗨
-┃ 8) 𝐒𝐇𝐀𝐇𝐀𝐃𝐀𝐓 𝐒𝐀𝐇𝐔
-┃ 9) 𝖲𝖧𝖠𝖧𝖠𝖣𝖠𝖳 𝖲𝖠𝖧𝖴
+┃ 5) 🆂🅸🆈🅰🅼 🅷🅰🆂🅰🅽
+┃ 6) 𝙎 𝙄 𝙔 𝘼 𝙈  𝙃 𝘼 𝙎 𝘼 𝙉
+┃ 7) 𝗦𝗜𝗬𝗔𝗠 𝗛𝗔𝗦𝗔𝗡
+┃ 8) 𝐒𝐈𝐘𝐀𝐌 𝐇𝐀𝐒𝐀𝐍
+┃ 9) 𝖲𝖨𝖸𝖠𝖬 𝖧𝖠𝖲header𝖭
 ┃10) 𝕊ℍ𝔸ℍ𝔸𝔻𝔸𝕋 𝕊𝔸ℍ𝕌
 ┣━━━━━━━━━━━━━━━━━━━┫
 ┃Use: Reply font <1-10>
