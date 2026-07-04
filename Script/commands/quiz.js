@@ -87,7 +87,7 @@ module.exports.run = async function ({ api, event }) {
     }, messageID);
 
   } catch {
-    api.sendMessage("Quiz API error call boss SAHU✔", threadID, messageID);
+    api.sendMessage("Quiz API error call boss Siyam✔", threadID, messageID);
   }
 };
 
