@@ -1,5 +1,5 @@
 module.exports.config = {
- name: "profile",
+ name: "ck",
  version: "1.0.2",
  hasPermssion: 0,
  credits: "Shahadat SA HU",
@@ -32,14 +32,10 @@ module.exports.run = async function({ event, api, args }) {
  }
  
  const message = {
- body: `╔══════════❖🌺❖══════════╗
-║ 👤 𝐍𝐚𝐦𝐞 : ${name}
-║ 🆔 𝐔𝐬𝐞𝐫 𝐔𝐈𝐃 : ${uid}
-║ 🔗 𝐌𝐞𝐬𝐬𝐚𝐠𝐞 𝐋𝐢𝐧𝐤 :
-║ m.me/${uid}
-║ 🌐 𝐅𝐁 𝐏𝐫𝐨𝐟𝐢𝐥𝐞 : 
-║ fb.com/${uid}
-╚══════════❖🌺❖══════════╝`,
+ body: `───────────────» 👤 𝗡𝗮𝗺𝗲 : ${name}
+» 🆔 𝗨𝘀𝗲𝗿 𝗨𝗜𝗗 : ${uid}
+» 🔗 𝗠𝗲𝘀𝘀𝗮𝗴𝗲 𝗟𝗶𝗻𝗸 : 𝗺.𝗺𝗲/${uid}
+» 🌐 𝗙𝗕 𝗣𝗿𝗼𝗳𝗶𝗹𝗲 : 𝗳𝗯.𝗰𝗼𝗺/${uid}───────────────» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`,
  attachment: fs.createReadStream(path)
  };
  
