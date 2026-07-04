@@ -4,7 +4,7 @@ module.exports = {
   config: {
     name: "ai",
     version: "1.0.1",
-    credits: "SHAHADAT SAHU",
+    credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
     cooldowns: 0,
     hasPermssion: 0,
     usePrefix: true
@@ -23,20 +23,23 @@ module.exports = {
       AI_API = res.data?.ai;
       if (!AI_API) throw new Error();
     } catch (e) {
-      return api.sendMessage("❌ API load failed!", threadID, messageID);
+      // Backup Working API Endpoint to ensure bot never fails
+      AI_API = "https://api.samirxpnb.ru.com/sandai";
     }
 
     const askAI = async (text) => {
       try {
         const res = await axios.get(`${AI_API}?q=${encodeURIComponent(text)}`);
-        return (
+        const replyText = (
           res.data?.answer ||
           res.data?.response ||
           res.data?.reply ||
-          "⚠️ No response"
+          res.data?.result ||
+          "⚠️ 𝗡𝗼 𝗿𝗲𝘀𝗽𝗼𝗻𝘀𝗲 𝗳𝗿𝗼𝗺 𝗔I."
         );
+        return `───────────────\n» 🤖 𝗔𝗜 𝗥𝗘𝗦𝗣𝗢𝗡𝗦𝗘:\n\n${replyText}\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`;
       } catch (e) {
-        return "❌ AI error!";
+        return "───────────────\n» ❌ 𝗔𝗜 𝗘𝗿𝗿𝗼𝗿! 𝗣𝗹𝗲𝗮𝘀𝗲 𝘁𝗿𝘆 𝗮𝗴𝗮𝗶𝗻 𝗹𝗮𝘁𝗲𝗿.\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍";
       }
     };
 
@@ -51,11 +54,8 @@ module.exports = {
     }
 
     if (!input) {
-      return api.sendMessage(
-        "🤖 Usage:\n• /ai your question\n• Reply any message with /ai",
-        threadID,
-        messageID
-      );
+      const usageMsg = "───────────────\n» 🤖 𝗔𝗜 𝗠𝗼𝗱𝗲 𝗨𝘀𝗮𝗴𝗲:\n» • /𝗮𝗶 [𝘆𝗼𝘂𝗿 𝗾𝘂𝗲𝘀𝘁𝗶𝗼𝗻]\n» • 𝗥𝗲𝗽𝗹𝘆 𝗮𝗻𝘆 𝗺𝗲𝘀𝘀𝗮𝗴𝗲 𝘄𝗶𝘁𝗵 / Signs\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍";
+      return api.sendMessage(usageMsg, threadID, messageID);
     }
 
     react("⏳");
