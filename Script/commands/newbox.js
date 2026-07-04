@@ -2,7 +2,7 @@ module.exports.config = {
   name: "newbox",
   version: "1.0.0",
   hasPermssion: 1,
-  credits: "SHAHADAT SAHU",
+  credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
   description: "Create a new chat group with mentioned users",
   commandCategory: "Group",
   usages: "newbox @tag | Group Name",
@@ -17,10 +17,10 @@ module.exports.run = async function ({ api, event }) {
 
   if (!body.includes("|")) {
     return api.sendMessage(
-      "Usage: newbox @tag1 @tag2 & Group Name",
-      event.threadID,
-      event.messageID
-    );
+`───────────────
+» 👑 𝗨𝘀𝗮𝗴𝗲: 𝗻𝗲𝘄𝗯𝗼𝘅 @𝘁𝗮𝗴১ @𝘁𝗮𝗴২ | গ্রুপের নাম (মেম্বারদের ট্যাগ দিয়ে একটি পাইপ | চিহ্ন বসিয়ে গ্রুপের নাম লিখুন)
+───────────────
+» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`, event.threadID, event.messageID);
   }
 
   const groupName = body.split("|")[1].trim();
@@ -33,8 +33,9 @@ module.exports.run = async function ({ api, event }) {
 
   api.createNewGroup(members, groupName, () => {
     api.sendMessage(
-      `Group created successfully: ${groupName}`,
-      event.threadID
-    );
+`───────────────
+» 👑 𝗚𝗿𝗼𝘂𝗽 𝗰𝗿𝗲𝗮𝘁𝗲𝗱 𝘀𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹𝗹𝘆: নতুন গ্রুপটি সফলভাবে তৈরি করা হয়েছে: ${groupName}
+───────────────
+» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`, event.threadID);
   });
 };
