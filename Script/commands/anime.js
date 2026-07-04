@@ -1,31 +1,39 @@
+const axios = require("axios");
+const fs = require("fs-extra");
+const path = require("path");
+
 module.exports.config = {
   name: "anemi",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "SHAHADAT SAHU",
-  description: "Random Anime Videos From SAHU API",
+  credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
+  description: "Random Anime Videos From API",
   commandCategory: "video",
   usages: "anemi",
   cooldowns: 5
 };
 
 module.exports.run = async function ({ api, event }) {
-  const axios = global.nodemodule["axios"];
-  const fs = global.nodemodule["fs-extra"];
+  const { threadID, messageID } = event;
   const API_LIST_URL = "https://raw.githubusercontent.com/sahu-uhas/SAHU-API/refs/heads/main/API.json";
+  
   try {
     const listRes = await axios.get(API_LIST_URL);
     const apis = listRes.data;
     const API = apis.anime_video;
 
     if (!API) {
-      return api.sendMessage("API Problem Please try again.......", event.threadID, event.messageID);
+      return api.sendMessage(
+        `───────────────\n» ⚠️ 𝗔𝗣𝗜 𝗣𝗿𝗼𝗯𝗹𝗲𝗺! 𝗣𝗹𝗲𝗮𝘀𝗲 𝘁𝗿𝘆 𝗮𝗴𝗮𝗶𝗻 𝗹𝗮𝘁𝗲𝗿.\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`,
+        threadID,
+        messageID
+      );
     }
 
-    const cacheDir = __dirname + "/cache";
+    const cacheDir = path.join(__dirname, "cache");
     if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
 
-    const filePath = `${cacheDir}/anemi_${Date.now()}.mp4`;
+    const filePath = path.join(cacheDir, `anemi_${Date.now()}.mp4`);
 
     const response = await axios({
       url: API,
@@ -38,26 +46,36 @@ module.exports.run = async function ({ api, event }) {
     response.data.pipe(writer);
 
     writer.on("finish", () => {
+      const formattedMsg = `───────────────\n» 🎬 𝗔𝗡𝗜𝗠𝗘 𝗥𝗔𝗡𝗗𝗢𝗠 𝗩𝗜𝗗𝗘𝗢\n» 📥 Video successfully loaded!\n» 🤖 𝗖𝗿𝗲𝗮𝘁𝗲𝗱 𝗯𝘆: ─꯭─⃝‌‌𝗦𝗶𝘆𝗮𝗺 𝗖𝗵𝗮𝘁 𝗕𝗼𝘁\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`;
+      
       api.sendMessage(
         {
-          body: "🎬 SAHU Anemi Random Video",
+          body: formattedMsg,
           attachment: fs.createReadStream(filePath)
         },
-        event.threadID,
+        threadID,
         () => {
           if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
         },
-        event.messageID
+        messageID
       );
     });
 
     writer.on("error", () => {
       if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-      api.sendMessage("❌ File Writing Error!", event.threadID, event.messageID);
+      api.sendMessage(
+        `───────────────\n» ❌ 𝗙𝗶𝗹𝗲 𝗪𝗿𝗶𝘁𝗶𝗻𝗴 𝗘𝗿𝗿𝗼𝗿!\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`,
+        threadID,
+        messageID
+      );
     });
 
   } catch (err) {
     console.log("ANEMI ERROR:", err?.response?.data || err.message);
-    api.sendMessage("❌ API Problem... Try again later!", event.threadID, event.messageID);
+    api.sendMessage(
+      `───────────────\n» ❌ 𝗔𝗣𝗜 𝗣𝗿𝗼𝗯𝗹𝗲𝗺! 𝗧𝗿𝘆 𝗮𝗴𝗮𝗶𝗻 𝗹𝗮𝘁𝗲𝗿.\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍`,
+      threadID,
+      messageID
+    );
   }
 };
