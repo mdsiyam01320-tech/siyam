@@ -4,7 +4,7 @@ const axios = require("axios");
 module.exports.config = {
   name: "antiProtect",
   version: "3.0.0",
-  credits: "SHAHADAT SAHU",
+  credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
   description: "Protect group name and photo",
   eventType: ["log:thread-name", "log:thread-icon"],
   cooldowns: 3
@@ -51,10 +51,9 @@ module.exports.run = async function ({ api, event }) {
 
       case "log:thread-name": {
         await api.setTitle(old.name, threadID).catch(() => {});
-        return api.sendMessage(
-          `🚫 Group name change blocked!\n👤 User: ${senderID}\nReverted to: "${old.name}"`,
-          threadID
-        );
+        
+        const msgName = `───────────────\n\n» 🚫 𝐆𝐫𝐨𝐮𝐩 𝐧𝐚𝐦𝐞 𝐜𝐡𝐚𝐧𝐠𝐞 𝐛𝐥𝐨𝐜𝐤𝐞𝐝!\n» 👤 𝐔𝐬2𝐞𝐫: ${senderID}\n» 𝐑𝐞𝐯𝐞𝐫𝐭𝐞𝐝 𝐭𝐨: "${old.name}"\n\n───────────────\n» ─꯭─⃝‌‌🧚𝗦𝗶𝘆𝗮𝗺 𝗖𝗵𝗮𝘁 𝗕𝗼𝘁─⃝‌‌🧚`;
+        return api.sendMessage(msgName, threadID);
       }
 
       case "log:thread-icon": {
@@ -65,10 +64,9 @@ module.exports.run = async function ({ api, event }) {
             await api.changeGroupImage(buf, threadID);
           }
         } catch {}
-        return api.sendMessage(
-          `🚫 Group photo change blocked!\n👤 User: ${senderID}\nOld photo restored.`,
-          threadID
-        );
+      
+        const msgIcon = `───────────────\n\n» 🚫 𝐆𝐫𝐨𝐮𝐩 𝐩𝐡𝐨𝐭𝐨 𝐜𝐡𝐚𝐧𝐠𝐞 𝐛𝐥𝐨𝐜𝐤𝐞𝐝!\n» 👤 𝐔𝐬𝐞𝐫: ${senderID}\n» 𝐎𝐥𝐝 𝐩𝐡𝐨𝐭𝐨 𝐫𝐞𝐬𝐭𝐨𝐫𝐞𝐝.\n\n───────────────\n» ─꯭─⃝‌‌🧚𝗦𝗶𝘆𝗮𝗺 𝗖𝗵𝗮𝘁 𝗕𝗼𝘁─⃝‌‌🧚`;
+        return api.sendMessage(msgIcon, threadID);
       }
     }
   } catch (e) {
