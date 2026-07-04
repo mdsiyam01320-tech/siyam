@@ -6,7 +6,7 @@ module.exports.config = {
   name: "chor",
   version: "2.0.0",
   hasPermssion: 0,
-  credits: "SHAHADAT SAHU",
+  credits: "𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
   description: "Scooby-doo meme using Avatar Canvas API",
   commandCategory: "fun",
   usePrefix: true,
@@ -26,7 +26,11 @@ module.exports.run = async function ({ event, api }) {
   }
 
   if (!targetID) {
-    return api.sendMessage("Please reply or mention someone.", threadID, messageID);
+    return api.sendMessage(
+      "───────────────\n\n» ⚠️ 𝗣𝗹𝗲𝗮𝘀𝗲 𝗿𝗲𝗽𝗹𝘆 𝗼𝗿 𝗺𝗲𝗻𝘁𝗶𝗼𝗻 𝘀𝗼𝗺𝗲𝗼𝗻𝗲.\n\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
+      threadID,
+      messageID
+    );
   }
 
   try {
@@ -40,8 +44,6 @@ module.exports.run = async function ({ event, api }) {
       `${AVATAR_CANVAS_API}/api`,
       {
         cmd: "chor",
-
-        
         senderID: targetID,
         targetID: senderID
       },
@@ -51,12 +53,15 @@ module.exports.run = async function ({ event, api }) {
       }
     );
 
-    const imgPath = path.join(__dirname, "cache", `chor_${senderID}_${targetID}.png`);
+    const cacheDir = path.join(__dirname, "cache");
+    fs.ensureDirSync(cacheDir);
+
+    const imgPath = path.join(cacheDir, `chor_${senderID}_${targetID}.png`);
     fs.writeFileSync(imgPath, res.data);
 
     return api.sendMessage(
       {
-        body: "~বলদ মেয়েদের চিপায় ধরা খাইছে😹🤣",
+        body: "───────────────\n\n» 😹 ~বলদ মেয়েদের চিপায় ধরা খাইছে\n\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
         attachment: fs.createReadStream(imgPath)
       },
       threadID,
@@ -65,6 +70,10 @@ module.exports.run = async function ({ event, api }) {
     );
 
   } catch (error) {
-    return api.sendMessage("API Error Call Boss SAHU.", threadID, messageID);
+    return api.sendMessage(
+      "───────────────\n\n» ❌ 𝗔𝗣𝗜 𝗘𝗿𝗿𝗼𝗿 𝗖𝗮𝗹𝗹 𝗔𝗱𝗺𝗶𝗻.\n\n───────────────\n» 👤 𝆠፝𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
+      threadID,
+      messageID
+    );
   }
 };
